@@ -1,0 +1,277 @@
+
+* {
+    font-family: monospace,tahoma, arial, verdana, sans-serif, Lucida Sans;
+    font-size: 14px;
+    box-sizing:border-box;
+}
+.rotationStart{
+	animation: rotateStart 0.5s linear;
+}
+.rotationEnd{
+	animation: rotateEnd 0.5s linear;
+}
+@keyframes rotateStart{
+	from{
+		transform: rotate3d(0,1,0,0deg);
+	}
+	to{
+		transform: rotate3d(0,1,0,90deg);
+	}
+}
+
+@keyframes rotateEnd{
+	from{
+		transform: rotate3d(0,1,0,-90deg);
+	}
+	to{
+		transform: rotate3d(0,1,0,0deg);
+	}
+}
+.editSpan{
+	vertical-align: middle;
+    margin-bottom: 3px;
+}
+div.panel-body{
+	background: rgb(247, 247, 247);
+}
+.noteSpan:hover{
+	color:#F9EAFF !important;
+}
+textarea{
+	resize:none;
+}
+.firstOptionTime{
+	color:red;
+}
+
+.hoursDiv{
+	background: rgb(247, 247, 247);
+    height: 100%;
+    color: #747374;
+    padding: 15px;
+}
+.notesDiv{
+	border: 1px solid transparent;
+    border-bottom: 1px solid rgb(190, 190, 190);
+    padding: 10px;
+    border-left: 7px solid rgb(212, 212, 212);
+    background: rgb(212, 212, 212);
+    min-height: 50px;
+ }
+.noteRow{
+	background: rgb(247, 247, 247);
+    min-height: 50px;
+}
+.noteSpan{
+	color:black;
+	transition: color 0.5s;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 14px;
+}
+.notesDiv:hover{
+    background: rgba(169, 166, 166, 0.58);
+    border: 1px solid #949494;
+    border-left: 7px solid #949494;
+}
+.noteDiv{
+	text-align: center;
+    box-shadow: 1px 1px 10px #030303;
+    border-radius: 5px;
+    background: rgb(95, 94, 100);
+    padding: 0;
+    padding-left: 7px !important;
+    color: rgba(210, 210, 210,1);
+}
+.spanBack,.spanPrev,.spanNext{
+	border-radius: 0;
+	display: block;
+	padding-top: 17px;
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	color:red;
+	float:left;
+	width:auto;
+}
+.spanNext{
+	right:0;
+	left: inherit;
+}
+
+.glyphicon-arrow-left,.glyphicon-arrow-right{
+	color:white;
+}
+.noteDiv:hover{
+    cursor: default;
+    border-radius: 5px;
+    background: #8B8B8B;
+    color: rgb(255, 255, 255);
+}
+.timeLabel{
+	padding-top: 7px;
+}
+.currentDatePanel>.panel-heading{
+	background: rgba(213, 213, 213, 0.78);
+}
+.currentDatePanel>.panel-heading h3{
+	line-height: 35px;
+	padding-left:8%;
+}
+i{
+	color:white;
+	display: block;
+	padding: 5px;
+	word-wrap: break-word;
+}
+i.noteHeader{
+	color:#BAB5B5 !important;
+}
+.noteNotFound{
+	font-size: 20px;
+}
+
+.currentDatePanel{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	min-width: 260px;
+}
+.currentMonth{
+	text-align: center;
+	margin: 0;
+	color: #7A7A7A;
+}
+.currentDatePanel>.panel-heading{
+	position: relative;
+	border-radius: 0;
+	border: 0;
+}
+.currentDatePanel>.panel-body{
+	margin: 0;
+	padding: 0;
+}
+.error{
+	color:#B70606;
+}
+.addNoteButton{
+	float:right;
+}
+
+body,html{
+	width:100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+body{
+	background:rgba(38, 38, 38, 0.78);
+}
+.calendar{
+	background:rgba(38, 38, 38, 0.78);
+	max-width: 100%;
+	padding: 5px;
+}
+.calendar table{
+	background:rgba(0, 0, 0, 0.76);
+	width: 100%;
+}
+.calendar td,th{
+	text-align: right;
+}
+.event{
+	display: block;
+	max-width: 100px; */
+	margin: 0 auto;
+	padding: 2px;
+    border: 1px solid #131313;
+    border-radius: 5px;
+    text-align: center;
+    white-space: nowrap;
+    background: #333232;
+    margin-bottom: 2px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.eventСount{
+	pading:2px;
+	display: inline-block;
+	max-width: 120px; */
+	margin-right: 20px;
+    border: 1px solid #131313;
+    border-radius: 5px;
+    text-align: center;
+    white-space: nowrap;
+    background: #333232;
+    margin-bottom: 2px !important;
+}
+.calendar td{
+	border:4px solid transparent;
+	cursor: pointer;
+	height:100px;
+	padding: 0;
+	color:white;
+	max-width: 130px;
+	min-width: 100px;
+}
+
+.calendar td a{
+	padding: 3px;
+	color:white;
+	cursor:pointer;
+}
+.day{
+	padding: 3px;
+	display: block;
+}
+.calendar th{
+	color:white;
+	padding-right: 2px;
+	border: 1px solid transparent;
+	border-bottom: 1px solid rgba(38, 38, 38, 0.78);
+}
+
+.weekend{
+	width: 100%;
+    height: 100%;
+    background: rgba(255, 4, 4, 0.13) !important;
+}
+.weekend a{
+	color: #F8F0F0 !important;
+}
+
+.otherMonthDateDiv{
+	width: 100%;
+    height: 100%;
+    background: rgb(54, 54, 54);
+}
+
+.otherMonthDateDiv a{
+	color: grey !important;
+}
+
+td>div{
+	width: 100%;
+	height: 100%;
+	margin:0;
+	padding: 0;
+	border-radius: 8px;
+	border: 3px solid transparent;
+	transition: border 0.2s;
+}
+
+td>div:hover{
+	border:3px solid white;
+}
+.currentDay{
+	color: white;
+    background: #680000;
+    border-radius: 50%
+}
+.currentMonthDate{
+	width: 100%;
+    height: 100%;
+    background: #1C1C1C;
+}

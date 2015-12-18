@@ -1,0 +1,113 @@
+<div class="wrapper">
+	<div class="main rotationEnd" ng-cloak>
+		<div class="panel panel-default currentDatePanel">
+	    <div class="panel-heading" style="width:100%">
+			<span ng-click="setCalendar(currentMonth.prevMonth)" class="spanPrev btn btn-danger">
+		        <span class="glyphicon glyphicon-arrow-left"></span>
+		    </span>
+		    <span ng-click="setCalendar(currentMonth.nextMonth)" class="spanNext btn btn-danger">
+		        <span class="glyphicon glyphicon-arrow-right"></span>
+		    </span>
+			<h1 class="currentMonth">{{currentMonth.currentMonthWithYear}}</h1>
+		</div>
+		<div class="panel-body">
+			<div class="calendar">
+				<table>
+					<thead>
+						<tr>
+							<th>Mon</th>
+							<th>Tue</th>
+							<th>Wedn</th>
+							<th>Thu</th>
+							<th>Fri</th>
+							<th>Sat</th>
+							<th>Sun</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr  ng-repeat="week in currentMonth">
+							
+							<td ng-click="openDay(day.url)" ng-repeat="day in week">
+									<div ng-if="day.weekend" class="weekend">
+										<div ng-if="day.other" class="otherMonthDateDiv">
+											<span class="day">
+												<a ng-if="!day.current" >
+													{{day.dayNumber}}
+												</a>
+												<a ng-if="day.current" class="currentDay">
+													{{day.dayNumber}}
+												</a>
+											</span>
+											<center>
+												<p class="event" ng-if="!notes.count" ng-repeat="note in day.notes">{{note.header}}</p>
+
+												<span ng-if="day.notes.count"> 
+													<span class="badge">{{day.notes.count}}</span>
+													notes
+												</span>
+											</center>
+										</div>
+										<div ng-if="!day.other" class="currentMonthDateDiv">
+											<span class="day">
+												<a ng-if="!day.current">
+													{{day.dayNumber}}
+												</a>
+												<a ng-if="day.current" class="currentDay">	  {{day.dayNumber}}
+												</a>
+											</span>
+											<center>
+												<p class="event" ng-if="!notes.count" ng-repeat="note in day.notes">{{note.header}}</p>
+
+												<span ng-if="day.notes.count"> 
+													<span class="badge">{{day.notes.count}}</span>
+													notes
+												</span>
+											</center>
+										</div>
+									</div>
+									<div ng-if="!day.weekend" class="currentMonthDate">
+										<div ng-if="day.other" class="otherMonthDateDiv">
+											<span class="day">
+												<a ng-if="!day.current">
+													{{day.dayNumber}}
+												</a>
+												<a ng-if="day.current" class="currentDay">
+													{{day.dayNumber}}
+												</a>
+											</span>
+											<center>
+												<p class="event" ng-if="!notes.count" ng-repeat="note in day.notes">{{note.header}}</p>
+
+												<span ng-if="day.notes.count"> 
+													<span class="badge">{{day.notes.count}}</span>
+													notes
+												</span>
+											</center>
+										</div>
+										<div ng-if="!day.other" class="currentMonthDateDiv">
+											<span class="day">
+												<a ng-if="!day.current">
+													{{day.dayNumber}}
+												</a>
+												<a ng-if="day.current" class="currentDay">	  {{day.dayNumber}}
+												</a>
+											</span>
+											<center>
+												<p class="event" ng-if="!notes.count" ng-repeat="note in day.notes">{{note.header}}</p>
+
+												<span ng-if="day.notes.count"> 
+													<span class="badge">{{day.notes.count}}</span>
+													notes
+												</span>
+											</center>
+										</div>
+									</div>
+							</td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

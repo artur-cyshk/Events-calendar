@@ -1,0 +1,200 @@
+ <div class="wrapper">
+  <div class="rotationEnd">
+     <div ng-cloak class="panel panel-default currentDatePanel">
+        <div class="panel-heading">
+            <a ng-href="#/calendar"><span class="spanBack btn btn-danger">
+              <span class="glyphicon glyphicon-arrow-left"></span>
+            </span></a>
+            <h3 class="panel-title">{{currentDate}}
+              <span ng-if="emptyDayNotes" class="error noteNotFound">(No notes found)</span>
+              <button type="button" class="btn addNoteButton btn-primary" ng-click="openAddNoteModal()" data-toggle="modal" data-target="#addNoteModal">Add new note</button>
+              <div style="clear:both"></div>
+            </h3>
+        </div>
+        <div class="panel-body">
+          <div class="noteRow" ng-repeat="hour in resultDayShedule">
+              <div class="hoursDiv text-center col-md-2 col-lg-2 col-sm-2 col-xs-12">
+                {{hour.hour}} : 00
+              </div>
+              <div class="notesDiv col-md-10 col-lg-10 col-sm-10 col-xs-12">
+                <div style="padding: 5px" ng-repeat="note in hour.notes" class=" col-md-3 col-lg-3 col-sm-3 col-xs-12">
+                  <div class="noteDiv">
+                    <span ng-click="openDeleteNoteModal(note.key)" style="float:right" ng-if="!note.cantEdit" data-toggle="modal" data-target="#confirmDeleteModal" class="noteSpan glyphicon glyphicon-remove"></span>
+                    {{note.time}}<span style="float: left" ng-click="openEditNoteModal(note.key)" ng-if="!note.cantEdit" data-toggle="modal" data-target="#editNoteModal"class="editSpan noteSpan glyphicon glyphicon-pencil"></span><br>
+                      <span><i class="noteHeader">{{note.header}}</i>
+                      </span>
+                      <i>{{note.description}}</i>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+<div id="confirmDeleteModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close closeNoteModal" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm delete</h4>
+      </div>
+      <div class="modal-body text-center">
+          <h1> Are you sure ?</h1>
+      </div>
+      <div class="modal-footer">
+        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+          <button  class="btn btn-primary" ng-click="deleteNote(noteKeyToDelete)" data-dismiss="modal">Yes, delete</button>
+          <button class="btn btn-danger" type="button" data-dismiss="modal">No, close</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="editNoteModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close closeNoteModal" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Note</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal text-center"  name="addNoteForm" ng-submit="editNote(noteToEdit.key)">
+          <div class="form-group">
+            <label for="header" class="col-sm-2 control-label">Note header</label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-paperclip"></span>
+                </span>
+                <input type="text" id="header" class="form-control" placeholder="Note header" ng-model="noteToEdit.header">
+              </div>
+               <div class="error" ng-if="newNoteError.headerError">Header is required field</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Note</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" ng-model="noteToEdit.description" rows="3"></textarea>
+              <div class="error" ng-if="newNoteError.descriptionError">Description must be empty or more then 4 words</div>
+            </div>
+          </div>
+          <div class="form-group">
+             <label for="Time" class="col-sm-2 control-label">Current time</label>
+             <div class="col-sm-10">
+                <div class="alert alert-danger">
+                  {{noteToEdit.oldHour}} : {{noteToEdit.oldMinute}}<br>
+                  <small>(to change minutes/hours select relevant option)</small>
+                </div>
+             </div>
+             
+          </div>
+          <div class="form-group">
+              <label for="Time" class="col-sm-2 control-label">Set time</label>
+              <div class="col-sm-10">
+                <div class="col-sm-1 timeLabel">
+                  <span>HOURS</span>
+                </div>
+                <div class="col-sm-offset-1 col-sm-4">
+                  <select class="form-control" autocomplete="off" ng-model="noteToEdit.hour" >
+                    <option value="{{hour}}" ng-repeat="hour in time.hours">{{hour}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-1 timeLabel">
+                  <small>MINUTES</small>
+                </div>
+                <div class="col-sm-offset-1 col-sm-4">
+                  <select required class="form-control" autocomplete="off" ng-model="noteToEdit.minute" class="col-sm-offset-1 col-sm-4">
+                    <option value="{{minute}}" ng-repeat="minute in time.minutes">{{minute}}</option>
+                  </select>
+                  
+                </div>
+                <div class="error" ng-if="newNoteError.timeError">Time is required field</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                
+                 <div class="error" ng-if="newNoteError.pastError">Time is out of current date</div>
+                 <div class="error" ng-if="newNoteError.emptyFormError">Put information about note</div>
+                <button type="submit" class="col-sm-12 col-xs-12 btn btn-primary">Edit note</button>
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="addNoteModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close closeNoteModal" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Note</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal text-center" name="addNoteForm" ng-submit="addNote()">
+          <div class="form-group">
+            <label for="header" class="col-sm-2 control-label">Note header</label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-paperclip"></span>
+                </span>
+                <input type="text" id="header" class="form-control" placeholder="Note header" ng-model="note.header">
+              </div>
+               <div class="error" ng-if="newNoteError.headerError">Header is required field</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Note</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" ng-model="note.description" rows="3"></textarea>
+              <div class="error" ng-if="newNoteError.descriptionError">Description must be empty or more then 4 words</div>
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="Time" class="col-sm-2 control-label">Time</label>
+              <div class="col-sm-10">
+                <div class="col-sm-1 timeLabel">
+                  <span >HOURS</span>
+                </div>
+                <div class="col-sm-offset-1 col-sm-4">
+                  <select class="form-control" autocomplete="off" ng-model="note.hour" >
+                    <option value="{{hour}}" ng-repeat="hour in time.hours">{{hour}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-1 timeLabel">
+                  <small>MINUTES</small>
+                </div>
+                <div class="col-sm-offset-1 col-sm-4">
+                  <select required class="form-control" autocomplete="off" ng-model="note.minute" class="col-sm-offset-1 col-sm-4">
+                    <option value="{{minute}}" ng-repeat="minute in time.minutes">{{minute}}</option>
+                  </select>
+                  
+                </div>
+                <div class="error" ng-if="newNoteError.timeError">Time is required field</div>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                 <div class="error" ng-if="newNoteError.pastError">Time is out of current date</div>
+                 <div class="error" ng-if="newNoteError.emptyFormError">Put information about note</div>
+                <button type="submit" class="col-sm-12 col-xs-12 btn btn-primary">add note</button>
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
